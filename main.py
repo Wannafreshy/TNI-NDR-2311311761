@@ -23,3 +23,28 @@ df["วันที่"] = df["วันที่"].apply(convert_thai_date)
 df["วันที่"] = pd.to_datetime(df["วันที่"])
 df = df.dropna()
 df.head(5)
+print(df["ราคาปิด"].describe())
+print(df[df["ราคาปิด"] == df["ราคาปิด"].max()])
+print(df[["ราคาปิด", "SET Index"]].corr())
+from sklearn.linear_model import LinearRegression
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.rcParams['font.family'] = 'DejaVu Sans'
+df_sorted = df.sort_values("วันที่")
+X = df_sorted["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
+y = df_sorted["ราคาปิด"].values
+model = LinearRegression()
+model.fit(X, y)
+trend = model.predict(X)
+plt.figure(figsize=(12, 6))
+plt.plot(df_sorted["วันที่"], y, label="Actual Closing Price")
+plt.plot(df_sorted["วันที่"], trend, label="Trend (Linear Regression)",
+linestyle="--", color="red")
+plt.title("TTB Closing Price Trend")
+plt.xlabel("Date")
+plt.ylabel("Closing Price (Baht)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
