@@ -22,4 +22,9 @@ streamlit
 pandas
 matplotlib
 scikit-learn
-openpyxl
+openpyxl 
+```
+## Python version
+```text
+Python 3.11.9
+```
