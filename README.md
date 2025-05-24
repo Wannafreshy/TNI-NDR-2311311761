@@ -1,2 +1,0 @@
-# TNI-NDR-2311311761
-project ENG-494
