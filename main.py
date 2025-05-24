@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 df = pd.read_excel(r"C:\Users\boony\Documents\TNI-NDR-2311311761\TTB-SET-23May2025-6M.xlsx", sheet_name="TTB", skiprows=1)
 df.columns = [
 "วันที่", "ราคาเปิด", "ราคาสูงสุด", "ราคาต่ำสุด", "ราคาเฉลี่ย", "ราคาปิด",
@@ -76,36 +78,33 @@ try:
         {'selector': 'tbody tr:nth-child(even)', 'props': [('background-color', '#f2f9ff')]},
         {'selector': 'tbody tr:hover', 'props': [('background-color', '#b3d7ff')]}
     ]))
+    st.subheader("สถิติราคาปิดหุ้น TTB")
+    st.write(df["ราคาปิด"].describe().apply(lambda x: f"{x:.2f}"))
 
+    # ราคาปิดสูงสุด พร้อมวันที่
+    max_price = df["ราคาปิด"].max()
+    max_price_date = df.loc[df["ราคาปิด"] == max_price, "วันที่"].dt.strftime('%d %b %Y').values[0]
+    st.markdown(f"**ราคาปิดสูงสุดในช่วงนี้:** {max_price:.2f} บาท เมื่อวันที่ {max_price_date}")
+
+    corr = df[["ราคาปิด", "SET Index"]].corr().iloc[0,1]
+    X = df["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
+    y = df["ราคาปิด"].values
+    model = LinearRegression()
+    model.fit(X, y)
+    trend = model.predict(X)
+
+    # กราฟขนาดเล็กลง ดูสบายตา
+    st.subheader("กราฟราคาปิดและแนวโน้ม")
+    fig, ax = plt.subplots(figsize=(8, 4), dpi=100)
+    ax.plot(df["วันที่"], y, label="ราคาปิดจริง", marker='o', markersize=3, linestyle='-', color='#2874a6')
+    ax.plot(df["วันที่"], trend, label="แนวโน้ม (Linear Regression)", linestyle='--', color='#d35400', linewidth=2)
+    ax.set_title("ราคาปิดหุ้น TTB และแนวโน้ม 6 เดือนล่าสุด", fontsize=14)
+    ax.set_xlabel("วันที่", fontsize=12)
+    ax.set_ylabel("ราคาปิด (บาท)", fontsize=12)
+    ax.legend(fontsize=10)
+    ax.grid(visible=True, linestyle='--', alpha=0.6)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot(fig)
 except Exception as e:
     st.error(f"เกิดข้อผิดพลาด: {e}")
-# df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
-# df["วันที่"] = df["วันที่"].apply(convert_thai_date)
-# df["วันที่"] = pd.to_datetime(df["วันที่"])
-# df = df.dropna()
-# df.head(5)
-# print(df["ราคาปิด"].describe())
-# print(df[df["ราคาปิด"] == df["ราคาปิด"].max()])
-# print(df[["ราคาปิด", "SET Index"]].corr())
-# from sklearn.linear_model import LinearRegression
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib
-# matplotlib.rcParams['font.family'] = 'DejaVu Sans'
-# df_sorted = df.sort_values("วันที่")
-# X = df_sorted["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
-# y = df_sorted["ราคาปิด"].values
-# model = LinearRegression()
-# model.fit(X, y)
-# trend = model.predict(X)
-# plt.figure(figsize=(12, 6))
-# plt.plot(df_sorted["วันที่"], y, label="Actual Closing Price")
-# plt.plot(df_sorted["วันที่"], trend, label="Trend (Linear Regression)",
-# linestyle="--", color="red")
-# plt.title("TTB Closing Price Trend")
-# plt.xlabel("Date")
-# plt.ylabel("Closing Price (Baht)")
-# plt.legend()
-# plt.grid(True)
-# plt.tight_layout()
-# plt.show()
