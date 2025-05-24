@@ -15,7 +15,7 @@ Project ENG-494
 ---
 ## ไลบรารีที่ใช้ (Dependencies)
 
-> ไฟล์ `requirements.txt` ควรมีเนื้อหาประมาณนี้:
+> ไฟล์ `requirements.txt` :
 
 ```text
 streamlit
