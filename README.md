@@ -12,5 +12,14 @@ Project ENG-494
 - แสดงกราฟราคาปิดพร้อมเส้นแนวโน้ม (Trend Line) ด้วย Linear Regression
 - ตกแต่ง UI ด้วย CSS ให้ดูอ่านง่าย
 - รองรับภาษาไทย
-
 ---
+## ไลบรารีที่ใช้ (Dependencies)
+
+> ไฟล์ `requirements.txt` ควรมีเนื้อหาประมาณนี้:
+
+```text
+streamlit
+pandas
+matplotlib
+scikit-learn
+openpyxl
