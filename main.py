@@ -204,24 +204,33 @@ try:
     # กราฟราคาปิดและเทรนด์
     st.subheader("กราฟราคาปิดและเส้นแนวโน้ม (Trend Line)")
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+    fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
     ax.plot(df["วันที่"], df["ราคาปิด"], marker='o', linestyle='-', color='#2874a6', label='ราคาปิด')
 
-    # Linear Regression เพื่อหาเทรนด์
+# Linear Regression
     X = df["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
     y = df["ราคาปิด"].values
     model = LinearRegression()
     model.fit(X, y)
     trend = model.predict(X)
-
     ax.plot(df["วันที่"], trend, color='#d35400', linestyle='--', label='เส้นแนวโน้ม')
-    ax.set_xlabel("วันที่")
-    ax.set_ylabel("ราคาปิด (บาท)")
-    ax.set_title("กราฟราคาปิดหุ้น TTB กับเส้นแนวโน้ม")
+
+# ปรับ Label และ Title
+    ax.set_xlabel("วันที่", fontsize=12)
+    ax.set_ylabel("ราคาปิด (บาท)", fontsize=12)
+    ax.set_title("กราฟราคาปิดหุ้น TTB กับเส้นแนวโน้ม", fontsize=16)
+    ax.tick_params(axis='x', labelrotation=45)
     ax.grid(True, linestyle='--', alpha=0.5)
-    ax.legend()
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+    ax.legend(fontsize=12)
+
+# ปรับ layout ไม่ให้กราฟเบียด
+    fig.tight_layout()
+# หรือแบบละเอียด:
+    fig.subplots_adjust(left=0.15, right=0.95, top=0.9, bottom=0.2)
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+     st.pyplot(fig, use_container_width=False)
+
 
  # สรุปผล
     trend_direction = "เพิ่มขึ้น" if trend[-1] > trend[0] else "ลดลง" if trend[-1] < trend[0] else "คงที่"
