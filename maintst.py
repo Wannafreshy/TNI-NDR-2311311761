@@ -28,7 +28,7 @@ try:
                 day, month_th, year_th = thai_date_str.replace(",", "").split()
                 month = thai_months[month_th]
                 year = int(year_th) - 543
-            return f"{year}-{month}-{int(day):02d}"
+                return f"{year}-{month}-{int(day):02d}"
         return None
 
     df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
