@@ -7,31 +7,31 @@ import matplotlib
 # พาธไฟล์ Excel
 # excel_path = r"C:\Users\boony\Documents\TNI-NDR-2311311761\TTB-SET-23May2025-6M.xlsx"
 
-try:
-    df = pd.read_excel("TTB-SET-23May2025-6M.xlsx", sheet_name="TTB", skiprows=1)
-    df.columns = [
+# try:
+df = pd.read_excel("TTB-SET-23May2025-6M.xlsx", sheet_name="TTB", skiprows=1)
+df.columns = [
         "วันที่", "ราคาเปิด", "ราคาสูงสุด", "ราคาต่ำสุด", "ราคาเฉลี่ย", "ราคาปิด",
         "เปลี่ยนแปลง", "เปลี่ยนแปลง(%)", "ปริมาณ(พันหุ้น)", "มูลค่า(ล้านบาท)",
         "SET Index", "SET เปลี่ยนแปลง(%)"
     ]
-    df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
-    df["วันที่"] = df["วันที่"].apply(convert_thai_date)
-    df["วันที่"] = pd.to_datetime(df["วันที่"])
-    df = df.dropna().sort_values("วันที่")
+df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
+df["วันที่"] = df["วันที่"].apply(convert_thai_date)
+df["วันที่"] = pd.to_datetime(df["วันที่"])
+df = df.dropna().sort_values("วันที่")
 
     # ฟังก์ชันตกแต่งตาราง
-    def style_table(df):
-        def color_change(val):
-            if isinstance(val, str):
-                return ''
-            if val > 0:
-                return 'color: #27ae60; font-weight: 600;'  
-            elif val < 0:
-                return 'color: #c0392b; font-weight: 600;'  
-            else:
-                return ''
+def style_table(df):
+    def color_change(val):
+        if isinstance(val, str):
+            return ''
+        if val > 0:
+            return 'color: #27ae60; font-weight: 600;'  
+        elif val < 0:
+            return 'color: #c0392b; font-weight: 600;'  
+        else:
+            return ''
 
-        styled_df = (
+styled_df = (
             df.style
             .format({
                 "ราคาเปิด": "{:,.2f}",
@@ -62,7 +62,7 @@ try:
             **{'font-family': "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}
         )
     )
-        return styled_df 
+#  return styled_df 
 
 # ตั้งฟอนต์ภาษาไทย matplotlib
 # thai_font = 'Tahoma'
