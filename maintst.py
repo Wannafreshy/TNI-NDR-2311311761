@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-import matplotlib
 
 
 
@@ -205,7 +204,7 @@ footer {
     </p>
 </div>
 """, unsafe_allow_html=True)
-    matplotlib.rcParams['font.family'] = 'Tahoma'
+    
     # กราฟราคาปิดและเทรนด์
     st.subheader("กราฟราคาปิดและเส้นแนวโน้ม (Trend Line)")
 
