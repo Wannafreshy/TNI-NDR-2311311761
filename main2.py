@@ -5,10 +5,10 @@ from sklearn.linear_model import LinearRegression
 import matplotlib
 
 # พาธไฟล์ Excel
-excel_path = r"C:\Users\boony\Documents\TNI-NDR-2311311761\TTB-SET-23May2025-6M.xlsx"
+# excel_path = r"C:\Users\boony\Documents\TNI-NDR-2311311761\TTB-SET-23May2025-6M.xlsx"
 
 try:
-    df = pd.read_excel(excel_path, sheet_name="TTB", skiprows=1)
+    df = pd.read_excel(TTB-SET-23May2025-6M.xlsx, sheet_name="TTB", skiprows=1)
     df.columns = [
         "วันที่", "ราคาเปิด", "ราคาสูงสุด", "ราคาต่ำสุด", "ราคาเฉลี่ย", "ราคาปิด",
         "เปลี่ยนแปลง", "เปลี่ยนแปลง(%)", "ปริมาณ(พันหุ้น)", "มูลค่า(ล้านบาท)",
