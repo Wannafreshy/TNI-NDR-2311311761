@@ -29,6 +29,6 @@ openpyxl
 Python 3.11.9
 ```
 ##CANVA
-```text
+
 https://www.canva.com/design/DAGoXpNQucw/EkKTKHP90F8xF5j8rSUcQg/edit?utm_content=DAGoXpNQucw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
-```
+
