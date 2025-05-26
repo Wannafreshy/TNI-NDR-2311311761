@@ -14,6 +14,17 @@ df.columns = [
         "เปลี่ยนแปลง", "เปลี่ยนแปลง(%)", "ปริมาณ(พันหุ้น)", "มูลค่า(ล้านบาท)",
         "SET Index", "SET เปลี่ยนแปลง(%)"
     ]
+
+
+def convert_thai_date(thai_date_str):
+    for th, num in thai_months.items():
+        if th in thai_date_str:
+            day, month_th, year_th = thai_date_str.replace(",", "").split()
+            month = thai_months[month_th]
+            year = int(year_th) - 543
+            return f"{year}-{month}-{int(day):02d}"
+    return None
+
 df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
 df["วันที่"] = df["วันที่"].apply(convert_thai_date)
 df["วันที่"] = pd.to_datetime(df["วันที่"])
@@ -75,14 +86,6 @@ thai_months = {
     "ก.ย.": "09", "ต.ค.": "10", "พ.ย.": "11", "ธ.ค.": "12"
 }
 
-def convert_thai_date(thai_date_str):
-    for th, num in thai_months.items():
-        if th in thai_date_str:
-            day, month_th, year_th = thai_date_str.replace(",", "").split()
-            month = thai_months[month_th]
-            year = int(year_th) - 543
-            return f"{year}-{month}-{int(day):02d}"
-    return None
 
 # ตั้งค่าเพจ
 st.set_page_config(page_title="วิเคราะห์หุ้น TTB", layout="wide")
