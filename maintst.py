@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import matplotlib
 
+thai_font = 'Tahoma'
+matplotlib.rcParams['font.family'] = thai_font
 # พาธไฟล์ Excel
 excel_path = "TTB-SET-23May2025-6M.xlsx"
 
@@ -170,65 +172,7 @@ footer {
 ในเว็บนี้ เราจะดูข้อมูลย้อนหลัง 6 เดือน โดยทำความสะอาดข้อมูลและวิเคราะห์แนวโน้มราคาปิด พร้อมกราฟแสดงราคาหุ้นและเส้นเทรนด์  
 """)
 
-# # พาธไฟล์ Excel
-# excel_path = r"C:\Users\boony\Documents\TNI-NDR-2311311761\TTB-SET-23May2025-6M.xlsx"
 
-# try:
-#     df = pd.read_excel(excel_path, sheet_name="TTB", skiprows=1)
-#     df.columns = [
-#         "วันที่", "ราคาเปิด", "ราคาสูงสุด", "ราคาต่ำสุด", "ราคาเฉลี่ย", "ราคาปิด",
-#         "เปลี่ยนแปลง", "เปลี่ยนแปลง(%)", "ปริมาณ(พันหุ้น)", "มูลค่า(ล้านบาท)",
-#         "SET Index", "SET เปลี่ยนแปลง(%)"
-#     ]
-#     df = df[~df["วันที่"].isna() & ~df["วันที่"].str.contains("วันที่")]
-#     df["วันที่"] = df["วันที่"].apply(convert_thai_date)
-#     df["วันที่"] = pd.to_datetime(df["วันที่"])
-#     df = df.dropna().sort_values("วันที่")
-
-#     # ฟังก์ชันตกแต่งตาราง
-#     def style_table(df):
-#         def color_change(val):
-#             if isinstance(val, str):
-#                 return ''
-#             if val > 0:
-#                 return 'color: #27ae60; font-weight: 600;'  
-#             elif val < 0:
-#                 return 'color: #c0392b; font-weight: 600;'  
-#             else:
-#                 return ''
-
-#         styled_df = (
-#             df.style
-#             .format({
-#                 "ราคาเปิด": "{:,.2f}",
-#                 "ราคาสูงสุด": "{:,.2f}",
-#                 "ราคาต่ำสุด": "{:,.2f}",
-#                 "ราคาเฉลี่ย": "{:,.2f}",
-#                 "ราคาปิด": "{:,.2f}",
-#                 "เปลี่ยนแปลง": "{:,.2f}",
-#                 "เปลี่ยนแปลง(%)": "{:.2f}%",
-#                 "ปริมาณ(พันหุ้น)": "{:,.0f}",
-#                 "มูลค่า(ล้านบาท)": "{:,.0f}",
-#                 "SET Index": "{:,.2f}",
-#                 "SET เปลี่ยนแปลง(%)": "{:.2f}%",
-#             })
-#             .set_table_styles([
-#             {'selector': 'thead th', 'props': [
-#                 ('color', 'white'),
-#                 ('font-weight', '700'),
-#                 ('text-align', 'center'),
-#                 ('padding', '10px'),
-#             ]},          
-#         ])
-#         .applymap(color_change, subset=["เปลี่ยนแปลง(%)", "SET เปลี่ยนแปลง(%)"])
-#         .set_properties(
-#             subset=["ราคาเปิด", "ราคาสูงสุด", "ราคาต่ำสุด", "ราคาเฉลี่ย", "ราคาปิด",
-#                     "เปลี่ยนแปลง", "เปลี่ยนแปลง(%)", "ปริมาณ(พันหุ้น)", "มูลค่า(ล้านบาท)",
-#                     "SET Index", "SET เปลี่ยนแปลง(%)"], 
-#             **{'font-family': "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}
-#         )
-#     )
-#         return styled_df 
 
     st.subheader("ตารางข้อมูลย้อนหลัง 6 เดือน")
     st.dataframe(style_table(df))
