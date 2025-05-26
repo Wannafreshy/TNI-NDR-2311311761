@@ -229,19 +229,19 @@ st.markdown("""
 #     )
 #         return styled_df 
 
-    st.subheader("ตารางข้อมูลย้อนหลัง 6 เดือน")
-    st.dataframe(style_table(df))
+st.subheader("ตารางข้อมูลย้อนหลัง 6 เดือน")
+st.dataframe(style_table(df))
 
     # สถิติราคาปิด
-    st.subheader("สถิติราคาปิดหุ้น TTB")
-    st.write(df["ราคาปิด"].describe().apply(lambda x: f"{x:.2f}"))
+st.subheader("สถิติราคาปิดหุ้น TTB")
+st.write(df["ราคาปิด"].describe().apply(lambda x: f"{x:.2f}"))
 
-    max_price = df["ราคาปิด"].max()
-    max_price_date = df.loc[df["ราคาปิด"] == max_price, "วันที่"].dt.strftime('%d %b %Y').values[0]
-    st.markdown(f"**ราคาปิดสูงสุดในช่วงนี้:** {max_price:.2f} บาท เมื่อวันที่ {max_price_date}")
+max_price = df["ราคาปิด"].max()
+max_price_date = df.loc[df["ราคาปิด"] == max_price, "วันที่"].dt.strftime('%d %b %Y').values[0]
+st.markdown(f"**ราคาปิดสูงสุดในช่วงนี้:** {max_price:.2f} บาท เมื่อวันที่ {max_price_date}")
 
-    corr = df[["ราคาปิด", "SET Index"]].corr().iloc[0,1]
-    st.markdown(f"""
+corr = df[["ราคาปิด", "SET Index"]].corr().iloc[0,1]
+st.markdown(f"""
    <div style="
     background-color: #eaf2f8; 
     padding: 15px 20px; 
@@ -262,41 +262,41 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
     # กราฟราคาปิดและเทรนด์
-    st.subheader("กราฟราคาปิดและเส้นแนวโน้ม (Trend Line)")
+st.subheader("กราฟราคาปิดและเส้นแนวโน้ม (Trend Line)")
 
-    fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
-    ax.plot(df["วันที่"], df["ราคาปิด"], marker='o', linestyle='-', color='#2874a6', label='ราคาปิด')
+fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
+ax.plot(df["วันที่"], df["ราคาปิด"], marker='o', linestyle='-', color='#2874a6', label='ราคาปิด')
 
 # Linear Regression
-    X = df["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
-    y = df["ราคาปิด"].values
-    model = LinearRegression()
-    model.fit(X, y)
-    trend = model.predict(X)
-    ax.plot(df["วันที่"], trend, color='#d35400', linestyle='--', label='เส้นแนวโน้ม')
+X = df["วันที่"].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
+y = df["ราคาปิด"].values
+model = LinearRegression()
+model.fit(X, y)
+trend = model.predict(X)
+ax.plot(df["วันที่"], trend, color='#d35400', linestyle='--', label='เส้นแนวโน้ม')
 
 # ปรับ Label และ Title
-    ax.set_xlabel("วันที่", fontsize=12)
-    ax.set_ylabel("ราคาปิด (บาท)", fontsize=12)
-    ax.set_title("กราฟราคาปิดหุ้น TTB กับเส้นแนวโน้ม", fontsize=16)
-    ax.tick_params(axis='x', labelrotation=45)
-    ax.grid(True, linestyle='--', alpha=0.5)
-    ax.legend(fontsize=12)
+ax.set_xlabel("วันที่", fontsize=12)
+ax.set_ylabel("ราคาปิด (บาท)", fontsize=12)
+ax.set_title("กราฟราคาปิดหุ้น TTB กับเส้นแนวโน้ม", fontsize=16)
+ax.tick_params(axis='x', labelrotation=45)
+ax.grid(True, linestyle='--', alpha=0.5)
+ax.legend(fontsize=12)
 
 # ปรับ layout ไม่ให้กราฟเบียด
-    fig.tight_layout()
+fig.tight_layout()
 # หรือแบบละเอียด:
-    fig.subplots_adjust(left=0.15, right=0.95, top=0.9, bottom=0.2)
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-     st.pyplot(fig, use_container_width=False)
+fig.subplots_adjust(left=0.15, right=0.95, top=0.9, bottom=0.2)
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.pyplot(fig, use_container_width=False)
 
 
  # สรุปผล
-    trend_direction = "เพิ่มขึ้น" if trend[-1] > trend[0] else "ลดลง" if trend[-1] < trend[0] else "คงที่"
-    corr_val = corr
+trend_direction = "เพิ่มขึ้น" if trend[-1] > trend[0] else "ลดลง" if trend[-1] < trend[0] else "คงที่"
+corr_val = corr
 
-    st.markdown(f"""
+st.markdown(f"""
     <div style="
     background-color: #f0f8ff; 
     padding: 20px; 
@@ -331,5 +331,5 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-except Exception as e:
-    st.error(f"เกิดข้อผิดพลาด: {e}") 
+# except Exception as e:
+# st.error(f"เกิดข้อผิดพลาด: {e}") 
