@@ -65,8 +65,8 @@ try:
         return styled_df 
 
 # ตั้งฟอนต์ภาษาไทย matplotlib
-thai_font = 'Tahoma'
-matplotlib.rcParams['font.family'] = thai_font
+# thai_font = 'Tahoma'
+# matplotlib.rcParams['font.family'] = thai_font
 
 # แปลงวันที่ไทยเป็น YYYY-MM-DD
 thai_months = {
