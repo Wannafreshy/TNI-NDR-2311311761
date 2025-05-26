@@ -70,7 +70,7 @@ try:
     corr = df[["ราคาปิด", "SET Index"]].corr().iloc[0, 1]
     st.markdown(f""" ... ข้อมูลความสัมพันธ์ ... """, unsafe_allow_html=True)
 
-    # กราฟราคาปิดและแนวโน้ม
+
     fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
     ax.plot(df["วันที่"], df["ราคาปิด"], marker='o', linestyle='-', color='#2874a6', label='ราคาปิด')
 
