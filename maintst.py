@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import matplotlib
 
-thai_font = 'Tahoma'
-matplotlib.rcParams['font.family'] = thai_font
+
+
 # พาธไฟล์ Excel
 excel_path = "TTB-SET-23May2025-6M.xlsx"
 
@@ -205,7 +205,7 @@ footer {
     </p>
 </div>
 """, unsafe_allow_html=True)
-
+    matplotlib.rcParams['font.family'] = 'Tahoma'
     # กราฟราคาปิดและเทรนด์
     st.subheader("กราฟราคาปิดและเส้นแนวโน้ม (Trend Line)")
 
