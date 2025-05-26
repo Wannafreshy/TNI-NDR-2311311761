@@ -86,10 +86,10 @@ try:
 # matplotlib.rcParams['font.family'] = thai_font
 
 # ตั้งค่าเพจ
-st.set_page_config(page_title="วิเคราะห์หุ้น TTB", layout="wide")
+    st.set_page_config(page_title="วิเคราะห์หุ้น TTB", layout="wide")
 
 # CSS 
-st.markdown("""
+    st.markdown("""
 <style>
 .stApp {
     background: linear-gradient(to bottom right,#F5F5DC, #E0FFFF) !important;
@@ -157,7 +157,7 @@ footer {
 """, unsafe_allow_html=True)
 
 # หัวข้อ
-st.markdown("""
+    st.markdown("""
 <h1 style="font-weight: 800; color:#1a5276; margin-bottom: 0;">
     วิเคราะห์แนวโน้มราคาหุ้น TTB
 </h1>
@@ -165,7 +165,7 @@ st.markdown("""
     (ราคาย้อนหลัง 6 เดือน : ข้อมูลล่าสุด ณ 23 พ.ค. 2568)
 </p>
 """, unsafe_allow_html=True)
-st.markdown("""
+    st.markdown("""
 บริษัท ทีทีบี (TTB) เป็นหนึ่งในธนาคารชั้นนำของประเทศไทย ราคาหุ้นของบริษัทมีความผันผวนตามสถานการณ์ทางเศรษฐกิจและการเงิน  
 ในเว็บนี้ เราจะดูข้อมูลย้อนหลัง 6 เดือน โดยทำความสะอาดข้อมูลและวิเคราะห์แนวโน้มราคาปิด พร้อมกราฟแสดงราคาหุ้นและเส้นเทรนด์  
 """)
